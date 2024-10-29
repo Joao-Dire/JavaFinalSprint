@@ -18,13 +18,11 @@ public class CarroResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findall() {
         ArrayList<CarroTO> resultado = carroBO.findall();
-        Response.ResponseBuilder response = null;
-        if (resultado != null) {
-            response = Response.ok();
+        if (resultado != null && !resultado.isEmpty()) {
+            return Response.ok(resultado).build();
         } else {
-            response = Response.status(404);
+            return Response.status(Response.Status.NOT_FOUND).entity("Nada encontrado").build();
         }
-        response.entity(resultado);
-        return response.build();
     }
 }
+

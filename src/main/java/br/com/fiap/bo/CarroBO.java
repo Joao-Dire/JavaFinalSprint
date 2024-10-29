@@ -5,12 +5,13 @@ import br.com.fiap.to.CarroTO;
 
 import java.util.ArrayList;
 
+
 public class CarroBO {
     private CarroDAO carroDAO;
 
     public ArrayList<CarroTO> findall() {
         carroDAO = new CarroDAO();
-        //regra de negocios
-        return carroDAO.findall();
+
+        return carroDAO.findAll();
     }
 }

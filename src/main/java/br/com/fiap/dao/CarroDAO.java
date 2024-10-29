@@ -1,24 +1,40 @@
 package br.com.fiap.dao;
 
+import br.com.fiap.dao.Repository;
 import br.com.fiap.to.CarroTO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
+public class CarroDAO extends Repository {
+    public ArrayList<CarroTO> findAll() {
+        ArrayList<CarroTO> carros = new ArrayList<>();
+        String sql = "SELECT * FROM ddd_carros";
 
-public class CarroDAO {
+        try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
 
-    public ArrayList<CarroTO> findall() {
-        ArrayList<CarroTO> carros = new ArrayList<CarroTO>();
-        CarroTO carro = new CarroTO(1, "ABC-1234", "Modelo X", 2020, "Preto", 1);
-        carros.add(carro);
+            if (rs != null) {
+                while (rs.next()) {
+                    CarroTO carro = new CarroTO();
+                    carro.setIdCarro(rs.getInt("idCarro"));
+                    carro.setPlaca(rs.getString("placa"));
+                    carro.setModelo(rs.getString("modelo"));
+                    carro.setAno(rs.getInt("ano"));
+                    carro.setCor(rs.getString("cor"));
+                    carro.setIdCliente(rs.getInt("idCliente"));
 
-        carro = new CarroTO(2, "DEF-5678", "Modelo Y", 2021, "Branco", 2);
-        carros.add(carro);
+                    carros.add(carro);
+                }
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro na consulta: " + e.getMessage());
+        } finally {
+            closeConnection();
+        }
+
         return carros;
     }
-
 }
