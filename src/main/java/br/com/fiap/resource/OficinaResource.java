@@ -1,7 +1,7 @@
 package br.com.fiap.resource;
 
-import br.com.fiap.bo.CarroBO;
-import br.com.fiap.to.CarroTO;
+import br.com.fiap.bo.OficinaBO;
+import br.com.fiap.to.OficinaTO;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -9,14 +9,14 @@ import jakarta.ws.rs.core.Response;
 
 import java.util.ArrayList;
 
-@Path("/carros")
-public class CarroResource {
-    private CarroBO carroBO = new CarroBO();
+@Path("/oficinas")
+public class OficinaResource {
+    private OficinaBO oficinaBO = new OficinaBO();
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
-        ArrayList<CarroTO> resultado = carroBO.findAll();
+        ArrayList<OficinaTO> resultado = oficinaBO.findAll();
         Response.ResponseBuilder response = null;
         if (resultado != null) {
             response = Response.ok();
@@ -31,7 +31,7 @@ public class CarroResource {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findById(@PathParam("id") int id) {
-        CarroTO resultado = carroBO.findById(id);
+        OficinaTO resultado = oficinaBO.findById(id);
         Response.ResponseBuilder response = null;
         if (resultado != null) {
             response = Response.ok();
@@ -44,8 +44,8 @@ public class CarroResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response save(@Valid CarroTO carro) {
-        CarroTO resultado = carroBO.save(carro);
+    public Response save(@Valid OficinaTO oficina) {
+        OficinaTO resultado = oficinaBO.save(oficina);
         Response.ResponseBuilder response = null;
         if (resultado != null) {
             response = Response.created(null);
@@ -60,7 +60,7 @@ public class CarroResource {
     @Path("/{id}")
     public Response delete(@PathParam("id") int id) {
         Response.ResponseBuilder response = null;
-        if (carroBO.delete(id)) {
+        if (oficinaBO.delete(id)) {
             response = Response.status(204);
         } else {
             response = Response.status(404);
@@ -71,9 +71,9 @@ public class CarroResource {
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response update(@Valid CarroTO carro, @PathParam("id") int id) {
-        carro.setIdCarro(id);
-        CarroTO resultado = carroBO.update(carro);
+    public Response update(@Valid OficinaTO oficina, @PathParam("id") int id) {
+        oficina.setIdOficina(id);
+        OficinaTO resultado = oficinaBO.update(oficina);
         Response.ResponseBuilder response = null;
         if (resultado != null) {
             response = Response.ok();

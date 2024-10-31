@@ -9,7 +9,6 @@ public class CarroTO {
         private int idCliente;
 
         public CarroTO() {
-            // Construtor sem argumentos
         }
 
         public CarroTO(int idCarro, String placa, String modelo, int ano, String cor, int idCliente) {

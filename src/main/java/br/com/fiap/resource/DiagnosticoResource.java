@@ -1,7 +1,7 @@
 package br.com.fiap.resource;
 
-import br.com.fiap.bo.CarroBO;
-import br.com.fiap.to.CarroTO;
+import br.com.fiap.bo.DiagnosticoBO;
+import br.com.fiap.to.DiagnosticoTO;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -9,14 +9,14 @@ import jakarta.ws.rs.core.Response;
 
 import java.util.ArrayList;
 
-@Path("/carros")
-public class CarroResource {
-    private CarroBO carroBO = new CarroBO();
+@Path("/diagnosticos")
+public class DiagnosticoResource {
+    private DiagnosticoBO diagnosticoBO = new DiagnosticoBO();
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
-        ArrayList<CarroTO> resultado = carroBO.findAll();
+        ArrayList<DiagnosticoTO> resultado = diagnosticoBO.findAll();
         Response.ResponseBuilder response = null;
         if (resultado != null) {
             response = Response.ok();
@@ -31,7 +31,7 @@ public class CarroResource {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findById(@PathParam("id") int id) {
-        CarroTO resultado = carroBO.findById(id);
+        DiagnosticoTO resultado = diagnosticoBO.findById(id);
         Response.ResponseBuilder response = null;
         if (resultado != null) {
             response = Response.ok();
@@ -44,8 +44,8 @@ public class CarroResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response save(@Valid CarroTO carro) {
-        CarroTO resultado = carroBO.save(carro);
+    public Response save(@Valid DiagnosticoTO diagnostico) {
+        DiagnosticoTO resultado = diagnosticoBO.save(diagnostico);
         Response.ResponseBuilder response = null;
         if (resultado != null) {
             response = Response.created(null);
@@ -60,7 +60,7 @@ public class CarroResource {
     @Path("/{id}")
     public Response delete(@PathParam("id") int id) {
         Response.ResponseBuilder response = null;
-        if (carroBO.delete(id)) {
+        if (diagnosticoBO.delete(id)) {
             response = Response.status(204);
         } else {
             response = Response.status(404);
@@ -71,9 +71,9 @@ public class CarroResource {
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response update(@Valid CarroTO carro, @PathParam("id") int id) {
-        carro.setIdCarro(id);
-        CarroTO resultado = carroBO.update(carro);
+    public Response update(@Valid DiagnosticoTO diagnostico, @PathParam("id") int id) {
+        diagnostico.setIdDiagnostico(id);
+        DiagnosticoTO resultado = diagnosticoBO.update(diagnostico);
         Response.ResponseBuilder response = null;
         if (resultado != null) {
             response = Response.ok();

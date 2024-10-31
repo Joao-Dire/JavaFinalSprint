@@ -1,6 +1,6 @@
 package br.com.fiap.to;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 public class DiagnosticoTO {
     private int idDiagnostico;
