@@ -20,10 +20,7 @@ public class OficinaBO {
 
     public OficinaTO save(OficinaTO oficina) {
         oficinaDAO = new OficinaDAO();
-        //O nome da oficina não pode ser vazio
-        if (oficina.getNome() == null || oficina.getNome().isEmpty()) {
-            throw new IllegalArgumentException("O nome da oficina deve ser informado.");
-        }
+        validarOficina(oficina);
         return oficinaDAO.save(oficina);
     }
 
@@ -34,6 +31,29 @@ public class OficinaBO {
 
     public OficinaTO update(OficinaTO oficina) {
         oficinaDAO = new OficinaDAO();
+        validarOficina(oficina);
         return oficinaDAO.update(oficina);
+    }
+
+    private void validarOficina(OficinaTO oficina) {
+        if (oficina.getNome() == null || oficina.getNome().isEmpty()) {
+            throw new IllegalArgumentException("O nome da oficina deve ser informado.");
+        }
+        if (oficina.getTelefone() == null || oficina.getTelefone().isEmpty()) {
+            throw new IllegalArgumentException("O telefone da oficina deve ser informado.");
+        }
+        if (oficina.getRua() == null || oficina.getRua().isEmpty()) {
+            throw new IllegalArgumentException("A rua da oficina deve ser informada.");
+        }
+        if (oficina.getNumero() == null || oficina.getNumero().isEmpty()) {
+            throw new IllegalArgumentException("O número da oficina deve ser informado.");
+        }
+        if (oficina.getBairro() == null || oficina.getBairro().isEmpty()) {
+            throw new IllegalArgumentException("O bairro da oficina deve ser informado.");
+        }
+        if (oficina.getCidade() == null || oficina.getCidade().isEmpty()) {
+            throw new IllegalArgumentException("A cidade da oficina deve ser informada.");
+        }
+
     }
 }

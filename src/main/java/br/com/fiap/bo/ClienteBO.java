@@ -20,10 +20,7 @@ public class ClienteBO {
 
     public ClienteTO save(ClienteTO cliente) {
         clienteDAO = new ClienteDAO();
-        //O e-mail do cliente não pode ser vazio e deve ter formato válido
-        if (cliente.getEmail() == null || cliente.getEmail().isEmpty() || !cliente.getEmail().contains("@")) {
-            throw new IllegalArgumentException("O e-mail do cliente deve ser válido.");
-        }
+        validarCliente(cliente);
         return clienteDAO.save(cliente);
     }
 
@@ -34,6 +31,21 @@ public class ClienteBO {
 
     public ClienteTO update(ClienteTO cliente) {
         clienteDAO = new ClienteDAO();
+        validarCliente(cliente);
         return clienteDAO.update(cliente);
     }
+
+    private void validarCliente(ClienteTO cliente) {
+        if (cliente.getNomeCliente() == null || cliente.getNomeCliente().isEmpty()) {
+            throw new IllegalArgumentException("O nome do cliente deve ser informado.");
+        }
+        if (cliente.getTelefone() == null || cliente.getTelefone().isEmpty()) {
+            throw new IllegalArgumentException("O telefone do cliente deve ser informado.");
+        }
+        if (cliente.getEmail() == null || cliente.getEmail().isEmpty() || !cliente.getEmail().contains("@")) {
+            throw new IllegalArgumentException("O e-mail do cliente deve ser válido.");
+        }
+
+    }
+
 }

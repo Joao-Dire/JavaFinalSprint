@@ -19,12 +19,14 @@ public class DiagnosticoBO {
         return diagnosticoDAO.findById(idDiagnostico);
     }
 
+    public ArrayList<DiagnosticoTO> findByVeiculoId(int veiculoId) {
+        return diagnosticoDAO.findByVeiculoId(veiculoId);
+    }
+
+
     public DiagnosticoTO save(DiagnosticoTO diagnostico) {
         diagnosticoDAO = new DiagnosticoDAO();
-        //A data do diagnóstico não pode ser no futuro
-        if (diagnostico.getDataHoraDiagnostico().toLocalDateTime().isAfter(LocalDateTime.now())) {
-            throw new IllegalArgumentException("A data do diagnóstico não pode ser no futuro.");
-        }
+        validarDiagnostico(diagnostico);
         return diagnosticoDAO.save(diagnostico);
     }
 
@@ -35,6 +37,17 @@ public class DiagnosticoBO {
 
     public DiagnosticoTO update(DiagnosticoTO diagnostico) {
         diagnosticoDAO = new DiagnosticoDAO();
+        validarDiagnostico(diagnostico);
         return diagnosticoDAO.update(diagnostico);
+    }
+
+    private void validarDiagnostico(DiagnosticoTO diagnostico) {
+        if (diagnostico.getDataHoraDiagnostico().toLocalDateTime().isAfter(LocalDateTime.now())) {
+            throw new IllegalArgumentException("A data do diagnóstico não pode ser no futuro.");
+        }
+        if (diagnostico.getResultado() == null || diagnostico.getResultado().isEmpty()) {
+            throw new IllegalArgumentException("O resultado do diagnóstico deve ser informado.");
+        }
+
     }
 }

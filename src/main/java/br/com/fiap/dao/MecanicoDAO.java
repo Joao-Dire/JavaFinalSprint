@@ -11,15 +11,15 @@ public class MecanicoDAO extends Repository {
 
     public ArrayList<MecanicoTO> findAll() {
         ArrayList<MecanicoTO> mecanicos = new ArrayList<>();
-        String sql = "select * from ddd_mecanicos order by idMecanico";
+        String sql = "select * from T_CHL_MECANICO order by ID_MECANICO";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 MecanicoTO mecanico = new MecanicoTO();
-                mecanico.setIdMecanico(rs.getInt("idMecanico"));
-                mecanico.setNome(rs.getString("nome"));
-                mecanico.setTelefone(rs.getString("telefone"));
-                mecanico.setEmail(rs.getString("email"));
+                mecanico.setIdMecanico(rs.getInt("ID_MECANICO"));
+                mecanico.setNome(rs.getString("NOME"));
+                mecanico.setTelefone(rs.getString("TELEFONE"));
+                mecanico.setEmail(rs.getString("EMAIL"));
                 mecanico.setOficinaIdOficina(rs.getInt("oficinaIdOficina"));
                 mecanicos.add(mecanico);
             }
@@ -33,16 +33,16 @@ public class MecanicoDAO extends Repository {
 
     public MecanicoTO findById(int idMecanico) {
         MecanicoTO mecanico = null;
-        String sql = "select * from ddd_mecanicos where idMecanico = ?";
+        String sql = "select * from T_CHL_MECANICO where ID_MECANICO = ?";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             ps.setInt(1, idMecanico);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 mecanico = new MecanicoTO();
-                mecanico.setIdMecanico(rs.getInt("idMecanico"));
-                mecanico.setNome(rs.getString("nome"));
-                mecanico.setTelefone(rs.getString("telefone"));
-                mecanico.setEmail(rs.getString("email"));
+                mecanico.setIdMecanico(rs.getInt("ID_MECANICO"));
+                mecanico.setNome(rs.getString("NOME"));
+                mecanico.setTelefone(rs.getString("TELEFONE"));
+                mecanico.setEmail(rs.getString("EMAIL"));
                 mecanico.setOficinaIdOficina(rs.getInt("oficinaIdOficina"));
             }
         } catch (SQLException e) {
@@ -54,7 +54,7 @@ public class MecanicoDAO extends Repository {
     }
 
     public MecanicoTO save(MecanicoTO mecanico) {
-        String sql = "insert into ddd_mecanicos(nome, telefone, email, oficinaIdOficina) values(?, ?, ?, ?)";
+        String sql = "insert into T_CHL_MECANICO(NOME, TELEFONE, EMAIL, oficinaIdOficina) values(?, ?, ?, ?)";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             ps.setString(1, mecanico.getNome());
             ps.setString(2, mecanico.getTelefone());
@@ -72,7 +72,7 @@ public class MecanicoDAO extends Repository {
     }
 
     public boolean delete(int idMecanico) {
-        String sql = "delete from ddd_mecanicos where idMecanico = ?";
+        String sql = "delete from T_CHL_MECANICO where ID_MECANICO = ?";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             ps.setInt(1, idMecanico);
             return ps.executeUpdate() > 0;
@@ -85,7 +85,7 @@ public class MecanicoDAO extends Repository {
     }
 
     public MecanicoTO update(MecanicoTO mecanico) {
-        String sql = "update ddd_mecanicos set nome=?, telefone=?, email=?, oficinaIdOficina=? where idMecanico=?";
+        String sql = "update T_CHL_MECANICO set NOME=?, TELEFONE=?, EMAIL=?, OFICINA_ID_OFICINA=? where ID_MECANICO=?";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             ps.setString(1, mecanico.getNome());
             ps.setString(2, mecanico.getTelefone());

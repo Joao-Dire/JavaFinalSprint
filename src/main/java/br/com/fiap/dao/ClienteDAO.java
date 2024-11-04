@@ -11,7 +11,7 @@ public class ClienteDAO extends Repository {
 
     public ArrayList<ClienteTO> findAll() {
         ArrayList<ClienteTO> clientes = new ArrayList<>();
-        String sql = "select * from ddd_clientes order by idCliente";
+        String sql = "select * from T_CHL_CLIENTE order by idCliente";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -33,7 +33,7 @@ public class ClienteDAO extends Repository {
 
     public ClienteTO findById(int idCliente) {
         ClienteTO cliente = null;
-        String sql = "select * from ddd_clientes where idCliente = ?";
+        String sql = "select * from T_CHL_CLIENTE where ID_CLIENTE = ?";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             ps.setInt(1, idCliente);
             ResultSet rs = ps.executeQuery();
@@ -54,7 +54,7 @@ public class ClienteDAO extends Repository {
     }
 
     public ClienteTO save(ClienteTO cliente) {
-        String sql = "insert into ddd_clientes(nomeCliente, telefone, senha, email) values(?, ?, ?, ?)";
+        String sql = "insert into T_CHL_CLIENTE(NOME, TELEFONE, SENHA, EMAIL) values(?, ?, ?, ?)";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             ps.setString(1, cliente.getNomeCliente());
             ps.setString(2, cliente.getTelefone());
@@ -72,7 +72,7 @@ public class ClienteDAO extends Repository {
     }
 
     public boolean delete(int idCliente) {
-        String sql = "delete from ddd_clientes where idCliente = ?";
+        String sql = "delete from T_CHL_CLIENTE where ID_CLIENTE = ?";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             ps.setInt(1, idCliente);
             return ps.executeUpdate() > 0;
@@ -85,7 +85,7 @@ public class ClienteDAO extends Repository {
     }
 
     public ClienteTO update(ClienteTO cliente) {
-        String sql = "update ddd_clientes set nomeCliente=?, telefone=?, senha=?, email=? where idCliente=?";
+        String sql = "update T_CHL_CLIENTE set NOME=?, TELEFONE=?, SENHA=?, EMAIL=? where ID_CLIENTE=?";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             ps.setString(1, cliente.getNomeCliente());
             ps.setString(2, cliente.getTelefone());

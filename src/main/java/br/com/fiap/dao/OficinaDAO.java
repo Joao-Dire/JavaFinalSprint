@@ -11,18 +11,18 @@ public class OficinaDAO extends Repository {
 
     public ArrayList<OficinaTO> findAll() {
         ArrayList<OficinaTO> oficinas = new ArrayList<>();
-        String sql = "select * from ddd_oficinas order by idOficina";
+        String sql = "select * from T_CHL_OFICINA order by ID_OFICINAA";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 OficinaTO oficina = new OficinaTO();
-                oficina.setIdOficina(rs.getInt("idOficina"));
-                oficina.setNome(rs.getString("nome"));
-                oficina.setTelefone(rs.getString("telefone"));
-                oficina.setRua(rs.getString("rua"));
-                oficina.setNumero(rs.getString("numero"));
-                oficina.setBairro(rs.getString("bairro"));
-                oficina.setCidade(rs.getString("cidade"));
+                oficina.setIdOficina(rs.getInt("ID_OFICINAA"));
+                oficina.setNome(rs.getString("NOME"));
+                oficina.setTelefone(rs.getString("TELEFONE"));
+                oficina.setRua(rs.getString("RUA"));
+                oficina.setNumero(rs.getString("NUMERO"));
+                oficina.setBairro(rs.getString("BAIRRO"));
+                oficina.setCidade(rs.getString("CIDADE"));
                 oficinas.add(oficina);
             }
         } catch (SQLException e) {
@@ -35,19 +35,19 @@ public class OficinaDAO extends Repository {
 
     public OficinaTO findById(int idOficina) {
         OficinaTO oficina = null;
-        String sql = "select * from ddd_oficinas where idOficina = ?";
+        String sql = "select * from T_CHL_OFICINA where ID_OFICINA = ?";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             ps.setInt(1, idOficina);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 oficina = new OficinaTO();
-                oficina.setIdOficina(rs.getInt("idOficina"));
-                oficina.setNome(rs.getString("nome"));
-                oficina.setTelefone(rs.getString("telefone"));
-                oficina.setRua(rs.getString("rua"));
-                oficina.setNumero(rs.getString("numero"));
-                oficina.setBairro(rs.getString("bairro"));
-                oficina.setCidade(rs.getString("cidade"));
+                oficina.setIdOficina(rs.getInt("ID_OFICINA"));
+                oficina.setNome(rs.getString("NOME"));
+                oficina.setTelefone(rs.getString("TELEFONE"));
+                oficina.setRua(rs.getString("RUA"));
+                oficina.setNumero(rs.getString("NUMERO"));
+                oficina.setBairro(rs.getString("BAIRRO"));
+                oficina.setCidade(rs.getString("CIDADE"));
             }
         } catch (SQLException e) {
             System.out.println("Erro na consulta: " + e.getMessage());
@@ -58,7 +58,7 @@ public class OficinaDAO extends Repository {
     }
 
     public OficinaTO save(OficinaTO oficina) {
-        String sql = "insert into ddd_oficinas(nome, telefone, rua, numero, bairro, cidade) values(?, ?, ?, ?, ?, ?)";
+        String sql = "insert into T_CHL_OFICINA(NOME, TELEFONE, RUA, NUMERO, BAIRRO, CIDADE) values(?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             ps.setString(1, oficina.getNome());
             ps.setString(2, oficina.getTelefone());
@@ -78,7 +78,7 @@ public class OficinaDAO extends Repository {
     }
 
     public boolean delete(int idOficina) {
-        String sql = "delete from ddd_oficinas where idOficina = ?";
+        String sql = "delete from T_CHL_OFICINA where ID_OFICINA = ?";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             ps.setInt(1, idOficina);
             return ps.executeUpdate() > 0;
@@ -91,7 +91,7 @@ public class OficinaDAO extends Repository {
     }
 
     public OficinaTO update(OficinaTO oficina) {
-        String sql = "update ddd_oficinas set nome=?, telefone=?, rua=?, numero=?, bairro=?, cidade=? where idOficina=?";
+        String sql = "update T_CHL_OFICINA set NOME=?, TELEFONE=?, RUA=?, NUMERO=?, BAIRRO=?, CIDADE=? where ID_OFICINA=?";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             ps.setString(1, oficina.getNome());
             ps.setString(2, oficina.getTelefone());

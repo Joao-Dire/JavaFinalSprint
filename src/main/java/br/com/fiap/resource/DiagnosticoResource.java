@@ -42,6 +42,22 @@ public class DiagnosticoResource {
         return response.build();
     }
 
+    // Novo endpoint para buscar diagnósticos pelo ID do veículo
+    @GET
+    @Path("/veiculo/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findByVeiculoId(@PathParam("id") int veiculoId) {
+        ArrayList<DiagnosticoTO> resultado = diagnosticoBO.findByVeiculoId(veiculoId);
+        Response.ResponseBuilder response = null;
+        if (resultado != null && !resultado.isEmpty()) {
+            response = Response.ok();
+        } else {
+            response = Response.status(404);
+        }
+        response.entity(resultado);
+        return response.build();
+    }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response save(@Valid DiagnosticoTO diagnostico) {
